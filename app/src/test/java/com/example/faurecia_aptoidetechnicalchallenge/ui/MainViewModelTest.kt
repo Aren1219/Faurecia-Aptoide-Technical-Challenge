@@ -32,7 +32,7 @@ class MainViewModelTest {
     fun setup() {
         Dispatchers.setMain(mainThreadSurrogate)
         fakeRepo = FakeRepository()
-        viewModel = MainViewModel(fakeRepo, dispatcherProvider)
+//        viewModel = MainViewModel(fakeRepo, dispatcherProvider)
     }
 
     @After
@@ -49,6 +49,7 @@ class MainViewModelTest {
 
     @Test
     fun `success network response with turbine`() = runBlocking {
+        viewModel = MainViewModel(fakeRepo, dispatcherProvider)
         viewModel.appList.test {
             assertTrue(awaitItem() is Resource.Loading)
             assertTrue(awaitItem() is Resource.Loading)
@@ -59,10 +60,11 @@ class MainViewModelTest {
     @Test
     fun `error network response with turbine`() = runBlocking {
         fakeRepo.shouldEmitError = true
+        viewModel = MainViewModel(fakeRepo, dispatcherProvider)
         viewModel.appList.test {
-//            assertTrue(awaitItem() is Resource.Loading)
-//            assertTrue(awaitItem() is Resource.Loading)
-            this.skipItems(2)
+            assertTrue(awaitItem() is Resource.Loading)
+            assertTrue(awaitItem() is Resource.Loading)
+//            this.skipItems(2)
             assertEquals("Error message", awaitItem().message)
         }
     }
