@@ -1,8 +1,11 @@
 package com.example.faurecia_aptoidetechnicalchallenge
 
 import app.cash.turbine.test
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
@@ -16,6 +19,7 @@ class ExampleUnitTest {
 
     private val flow = flow {
         emit(0)
+        delay(10000)
         emit(1)
         emit(2)
         emit(3)
@@ -33,9 +37,14 @@ class ExampleUnitTest {
         stateFlow = MutableStateFlow(0)
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     @Test
-    fun `test flow`() = runBlocking {
-        assertEquals(0, flow.first())
+    fun `test flow`() = runTest {
+//        assertEquals(1, flow.drop(1).first())
+        assertEquals(1, flow.drop(1).first())
+
+//        assertEquals(0 ,flow.toList())
+//        assertEquals(4, flow.count())
     }
 
     @Test
@@ -49,7 +58,7 @@ class ExampleUnitTest {
     @Test
     fun `test flow with turbine`() = runBlocking {
         flow.test {
-            assertEquals(0, awaitItem())
+            assertEquals(0, this.awaitItem())
             assertEquals(1, awaitItem())
             assertEquals(2, awaitItem())
             assertEquals(3, awaitItem())

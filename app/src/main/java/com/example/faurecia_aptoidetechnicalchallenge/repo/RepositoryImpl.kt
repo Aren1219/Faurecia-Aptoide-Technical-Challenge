@@ -11,7 +11,7 @@ import javax.inject.Inject
 class RepositoryImpl @Inject constructor(
     private val api: Api
 ) : Repository {
-    override suspend fun getAppList() = flow<Resource<AptoideApiApps>> {
+    override suspend fun getAppList() = flow {
         emit(Resource.Loading())
         try {
             val response = api.getAppList()

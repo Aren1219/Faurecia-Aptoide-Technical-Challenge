@@ -3,6 +3,7 @@ package com.example.faurecia_aptoidetechnicalchallenge.di
 import com.example.faurecia_aptoidetechnicalchallenge.remote.Api
 import com.example.faurecia_aptoidetechnicalchallenge.repo.Repository
 import com.example.faurecia_aptoidetechnicalchallenge.repo.RepositoryImpl
+import com.example.faurecia_aptoidetechnicalchallenge.util.CoroutineDispatcherProvider
 import com.example.faurecia_aptoidetechnicalchallenge.util.Util.BASE_URL
 import dagger.Module
 import dagger.Provides
@@ -48,4 +49,8 @@ object AppModule {
     @Provides
     @Singleton
     fun provideRepo(api: Api): Repository = RepositoryImpl(api)
+
+    @Provides
+    @Singleton
+    fun provideDispatcherProvider() = CoroutineDispatcherProvider()
 }

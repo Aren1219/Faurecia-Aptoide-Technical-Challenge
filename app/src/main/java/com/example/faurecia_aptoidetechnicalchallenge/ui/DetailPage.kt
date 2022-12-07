@@ -32,7 +32,7 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
             .fillMaxSize()
     ) {
 
-        Box() {
+        Box {
             GlideImage(app.graphic)
             Button(
                 modifier = Modifier
@@ -48,17 +48,18 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
             }
         }
 
+        val height = 130.dp
         Row(
             modifier = Modifier
                 .padding(12.dp)
                 .fillMaxWidth()
-                .height(150.dp)
+                .height(height)
         ) {
             GlideImage(
                 app.icon,
                 Modifier
                     .clip(RoundedCornerShape(15))
-                    .size(150.dp)
+                    .size(height)
             )
             Column(
                 Modifier
@@ -66,7 +67,7 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
                     .fillMaxSize(),
                 Arrangement.SpaceBetween
             ) {
-                Column() {
+                Column {
                     Text(
                         text = app.name,
                         style = MaterialTheme.typography.titleLarge,
@@ -75,7 +76,9 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
                     )
                     Text(text = app.storeName)
                 }
-                Button(onClick = { /*TODO*/ }) {
+                Button(
+                    onClick = { /*TODO*/ }
+                ) {
                     Text(text = "INSTALL")
                 }
             }
@@ -95,6 +98,9 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
                 AppRating(rating = app.rating, color = Color.Black)
                 Text(text = "App rating", modifier = Modifier.clearAndSetSemantics { })
             }
+
+            Divider(color = Color.Gray, modifier = Modifier.size(1.dp, 30.dp))
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier.semantics(mergeDescendants = true) { }
@@ -105,7 +111,7 @@ fun DetailPage(app: App, navigator: DestinationsNavigator) {
 
         }
 
-        Divider(color = Color.Gray)
+        Divider(color = Color.Gray, modifier = Modifier.padding(horizontal = 12.dp))
 
         Column(
             modifier = Modifier
