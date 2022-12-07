@@ -60,8 +60,9 @@ class MainViewModelTest {
     fun `error network response with turbine`() = runBlocking {
         fakeRepo.shouldEmitError = true
         viewModel.appList.test {
-            assertTrue(awaitItem() is Resource.Loading)
-            assertTrue(awaitItem() is Resource.Loading)
+//            assertTrue(awaitItem() is Resource.Loading)
+//            assertTrue(awaitItem() is Resource.Loading)
+            this.skipItems(2)
             assertEquals("Error message", awaitItem().message)
         }
     }
